@@ -1,7 +1,11 @@
 #include "DragonSlayer.h"
 #include "Dragon.h"
+#include "Character.h"
 
-//DragonSlayer::DragonSlayer
+DragonSlayer::DragonSlayer (std::string name_, int hp, int armor) : Character ( hp, armor, 4 )
+{
+    name = name_;
+}
 
 //DragonSlayer::getName
 
