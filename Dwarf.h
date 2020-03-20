@@ -11,6 +11,9 @@ struct Dwarf : Character
     
     void attack( Character& other ) override;
 
+    int helpfulItems;
+    int defensiveItems;
+
 private:
     const std::string name;
 };

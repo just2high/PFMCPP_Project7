@@ -11,6 +11,11 @@ struct DragonSlayer : Character
 
     void attack(Character& other) override;
 
+    int helpfulItems;
+    int defensiveItems;
+
+    AttackItem dragonSword;
+
 private:
     const std::string name;
 };
