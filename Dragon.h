@@ -7,5 +7,6 @@ struct Dragon : Character
     void attack(Character& other) override;
 private:
     const std::string name;
+    Dragon () : 
 };
 
