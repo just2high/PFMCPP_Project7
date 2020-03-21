@@ -1,6 +1,7 @@
 #include "Character.h"
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 #include "DefensiveItem.h"
 #include "HelpfulItem.h"
@@ -27,6 +28,9 @@ void Character::attack( Character& other )
     isDefending = false;
     std::cout << getName() << " has attacked " << other.getName() << std::endl;
     //subtract attackDamage from other->hitPoints
+
+    other.hitPoints -= attackDamage;
+
     if( other.takeDamage(attackDamage) <= 0 )
     {
         //if you kill other, you get a boost in hit points and armor.
@@ -100,13 +104,23 @@ void Character::attackInternal(Character& other)
       */
         //assert(false);
         if( initialHitPoints != nullptr; hitPoints < *initialHitPoints )
-        hitPoints = *initialHitPoints * 1.1;
+            hitPoints = ceil(*initialHitPoints * 1.1);
+        else
+            hitPoints = ceil(hitPoints * 1.1);
 
         if( initialAttackDamage != nullptr; attackDamage < *initialAttackDamage)
-        attackDamage = *initialAttackDamage * 1.1;
+            attackDamage = ceil(*initialAttackDamage * 1.1);
+        else
+            attackDamage = ceil(attackDamage * 1.1);
 
         if( initialArmorLevel != nullptr; armor < *initialArmorLevel)
-        armor = *initialArmorLevel *1.1;
+            armor = ceil(*initialArmorLevel * 1.1);
+        else
+            armor = ceil(armor * 1.1);
+
+        *initialHitPoints = hitPoints;
+        *initialArmorLevel = armor;
+        *initialAttackDamage = attackDamage;
 
         std::cout << getName() << " defeated " << other.getName() << " and leveled up!" << std::endl;        
     }

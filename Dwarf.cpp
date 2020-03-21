@@ -4,9 +4,11 @@
 
 Dwarf::Dwarf(std::string name_, int hp, int armor) : Character ( hp, armor, 4 ), name( name_ )
 {
-    helpfulItems = makeHelpfulItems( 1 );
-    defensiveItems = makeDefensiveItems( 3 );
+    helpfulItems = makeHelpfulItems( rand() % 2 );
+    defensiveItems = makeDefensiveItems( rand() % 4 );
 }
+
+Dwarf::~Dwarf(){}
 
 const std::string& Dwarf::getName()
 {
@@ -16,4 +18,10 @@ const std::string& Dwarf::getName()
 std::string Dwarf::getStats()
 {
     return getCharacterStats(this);
+}
+
+void Dwarf::attack( Character& other )
+{
+    std::cout << getName() << " is attacking " << other.getName() << "!\n";
+    Character::attack( other );
 }

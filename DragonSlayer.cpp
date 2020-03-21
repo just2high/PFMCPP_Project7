@@ -5,9 +5,11 @@
 
 DragonSlayer::DragonSlayer (std::string name_, int hp, int armor) : Character ( hp, armor, 4 ), name( name_ )
 {
-    helpfulItems = makeHelpfulItems( 2 );
-    defensiveItems = makeDefensiveItems( 4 );
+    helpfulItems = makeHelpfulItems( rand() % 4 );
+    defensiveItems = makeDefensiveItems( rand() % 3 );
 }
+
+DragonSlayer::~DragonSlayer(){}
 
 const std::string& DragonSlayer::getName()
 {
@@ -24,12 +26,16 @@ void DragonSlayer::attack(Character& other)
         //so they should USE their attack item before attacking the dragon... 
         //
 
-        attackDamage *= dragonSword.getBoost();
+        useAttackItem(this, &dragonSword);
         
         while( dragon->getHP() > 0 )
         {
           dragon->takeDamage(attackDamage);
         }
+        //reset attack damage after killing dragon
+        attackDamage -= dragonSword.getBoost() * 10;
+
+        std::cout << getName() << "'s frenzy is over.  Damage returns to: " << attackDamage << std::endl;    
     }
         
     Character::attack(other);
