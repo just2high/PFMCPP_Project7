@@ -7,6 +7,7 @@ DragonSlayer::DragonSlayer (std::string name_, int hp, int armor) : Character ( 
 {
     helpfulItems = makeHelpfulItems( rand() % 4 );
     defensiveItems = makeDefensiveItems( rand() % 3 );
+    attackItems = makeAttackItems( 1 );
 }
 
 DragonSlayer::~DragonSlayer(){}
@@ -25,15 +26,24 @@ void DragonSlayer::attack(Character& other)
         //DragonSlayers get a 10x boost when attacking dragons, from their attack item.
         //so they should USE their attack item before attacking the dragon... 
         //
+      
+        for( auto& item : attackItems )
+        {
+            if( auto* attackItems = dynamic_cast<AttackItem*>(item.get()) )
+            {
+                attackItems->use(this);
+                item.reset(); //can only be used once!
 
-        useAttackItem(this, &dragonSword);
-        
+               break;
+            }
+        }
+
         while( dragon->getHP() > 0 )
         {
           dragon->takeDamage(attackDamage);
         }
         //reset attack damage after killing dragon
-        attackDamage -= dragonSword.getBoost() * 10;
+        attackDamage = this->getInitialAttackDamage();
 
         std::cout << getName() << "'s frenzy is over.  Damage returns to: " << attackDamage << std::endl;    
     }

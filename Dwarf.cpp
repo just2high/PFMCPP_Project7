@@ -19,9 +19,3 @@ std::string Dwarf::getStats()
 {
     return getCharacterStats(this);
 }
-
-void Dwarf::attack( Character& other )
-{
-    std::cout << getName() << " is attacking " << other.getName() << "!\n";
-    Character::attack( other );
-}

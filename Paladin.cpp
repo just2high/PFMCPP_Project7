@@ -19,9 +19,3 @@ std::string Paladin::getStats()
 {
     return getCharacterStats(this);
 }
-
-void Paladin::attack( Character& other )
-{
-    std::cout << getName() << " is attacking " << other.getName() << "!\n";
-    Character::attack( other );
-}

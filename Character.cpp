@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
-
+#include <memory>
 #include "DefensiveItem.h"
 #include "HelpfulItem.h"
 
@@ -29,9 +29,7 @@ void Character::attack( Character& other )
     std::cout << getName() << " has attacked " << other.getName() << std::endl;
     //subtract attackDamage from other->hitPoints
 
-    other.hitPoints -= attackDamage;
-
-    if( other.takeDamage(attackDamage) <= 0 )
+        if( other.takeDamage(attackDamage) <= 0 )
     {
         //if you kill other, you get a boost in hit points and armor.
         attackInternal(other);
@@ -92,6 +90,17 @@ int Character::takeDamage(int damage)
 
 
 #include "Utility.h"
+
+void Character::levelUp( int& currentValue, int initialValue )
+{
+    if( currentValue < initialValue )
+        currentValue = ceil(initialValue * 1.1);
+    else
+        currentValue = ceil(currentValue * 1.1);
+
+    initialValue = currentValue;
+}
+
 void Character::attackInternal(Character& other)
 {
     if( other.hitPoints <= 0 )
@@ -103,24 +112,10 @@ void Character::attackInternal(Character& other)
             c) the initial value of your stats is updated to reflect this boosted stat for the next time you defeat another character. initialX
       */
         //assert(false);
-        if( initialHitPoints != nullptr; hitPoints < *initialHitPoints )
-            hitPoints = ceil(*initialHitPoints * 1.1);
-        else
-            hitPoints = ceil(hitPoints * 1.1);
 
-        if( initialAttackDamage != nullptr; attackDamage < *initialAttackDamage)
-            attackDamage = ceil(*initialAttackDamage * 1.1);
-        else
-            attackDamage = ceil(attackDamage * 1.1);
-
-        if( initialArmorLevel != nullptr; armor < *initialArmorLevel)
-            armor = ceil(*initialArmorLevel * 1.1);
-        else
-            armor = ceil(armor * 1.1);
-
-        *initialHitPoints = hitPoints;
-        *initialArmorLevel = armor;
-        *initialAttackDamage = attackDamage;
+        levelUp( hitPoints, *initialHitPoints);
+        levelUp( armor, *initialArmorLevel);
+        levelUp( attackDamage, *initialAttackDamage);
 
         std::cout << getName() << " defeated " << other.getName() << " and leveled up!" << std::endl;        
     }
