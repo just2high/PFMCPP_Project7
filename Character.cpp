@@ -10,7 +10,7 @@ Character::Character(int hp, int armor_, int attackDamage_ ) :
     armor(armor_),
     attackDamage(attackDamage_)
 {
-    initialHitPoints.reset( new int(hitPoints) );
+    initialHitPoints.reset( new int( hitPoints ) );
     initialArmorLevel.reset( new int( armor) );
     initialAttackDamage.reset( new int( attackDamage) );
 }
@@ -87,18 +87,27 @@ int Character::takeDamage(int damage)
 }
 
 
-#include <assert>
+#include "Utility.h"
 void Character::attackInternal(Character& other)
 {
     if( other.hitPoints <= 0 )
     {
         /*
         When you defeat another Character: 
-            a) your stats are restored to their initial value if they are lower than it.
+            a) your stats are restored to their initial value if they are lower than it. (hp, armor, atk)
             b) your stats are boosted 10%
-            c) the initial value of your stats is updated to reflect this boosted stat for the next time you defeat another character.
+            c) the initial value of your stats is updated to reflect this boosted stat for the next time you defeat another character. initialX
       */
-        assert(false);
+        //assert(false);
+        if( initialHitPoints != nullptr; hitPoints < *initialHitPoints )
+        hitPoints = *initialHitPoints * 1.1;
+
+        if( initialAttackDamage != nullptr; attackDamage < *initialAttackDamage)
+        attackDamage = *initialAttackDamage * 1.1;
+
+        if( initialArmorLevel != nullptr; armor < *initialArmorLevel)
+        armor = *initialArmorLevel *1.1;
+
         std::cout << getName() << " defeated " << other.getName() << " and leveled up!" << std::endl;        
     }
 }
@@ -106,7 +115,7 @@ void Character::attackInternal(Character& other)
 void Character::printStats()
 {
     std::cout << getName() << "'s stats: " << std::endl;
-    assert(false);
+    //assert(false);
     /*
     make your getStats() use a function from the Utility.h
     */
@@ -115,3 +124,4 @@ void Character::printStats()
     std::cout << std::endl;
     std::cout << std::endl;
 }
+

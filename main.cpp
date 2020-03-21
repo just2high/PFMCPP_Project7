@@ -62,9 +62,7 @@ send me a DM to check your pull request
 #include "Paladin.h"
 #include "Dragon.h"
 #include "DragonSlayer.h"
-#include "AttackItem.h"
-#include "HelpfulItem.h"
-#include "Utility.h"
+
 //==========================================================
 //==========================================================
 int main()

@@ -3,14 +3,16 @@
 #include "Character.h"
 #include "Utility.h"
 
-DragonSlayer::DragonSlayer (std::string name_, int hp, int armor) : Character ( hp, armor, 4 )
+DragonSlayer::DragonSlayer (std::string name_, int hp, int armor) : Character ( hp, armor, 4 ), name( name_ )
 {
-    name = name_;
     helpfulItems = makeHelpfulItems( 2 );
     defensiveItems = makeDefensiveItems( 4 );
 }
 
-//DragonSlayer::getName
+const std::string& DragonSlayer::getName()
+{
+    return name;
+}
 
 void DragonSlayer::attack(Character& other)
 {
@@ -34,4 +36,7 @@ void DragonSlayer::attack(Character& other)
         
 }
 
-//DragonSlayer::getStats
+std::string DragonSlayer::getStats()
+{
+    return getCharacterStats(this);
+}

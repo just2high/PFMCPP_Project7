@@ -2,13 +2,18 @@
 #include "Character.h"
 #include "Utility.h"
 
-Dwarf::Dwarf(std::string name_, int hp, int armor) : Character ( hp, armor, 4 )
+Dwarf::Dwarf(std::string name_, int hp, int armor) : Character ( hp, armor, 4 ), name( name_ )
 {
-    name = name_;
     helpfulItems = makeHelpfulItems( 1 );
     defensiveItems = makeDefensiveItems( 3 );
 }
 
-//Dwarf::getName
+const std::string& Dwarf::getName()
+{
+    return name;
+}
 
-//Dwarf::getStats
+std::string Dwarf::getStats()
+{
+    return getCharacterStats(this);
+}
