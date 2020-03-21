@@ -45,6 +45,7 @@ void Character::defend()
         {
             defensiveItem->use(this);
             item.reset(); //can only be used once!
+            this->defensiveItems.pop_back();
             break;
         }
     }
@@ -60,6 +61,7 @@ void Character::help(Character& other)
         {
             helpfulItem->use(&other);
             item.reset(); //can only be used once!
+            this->helpfulItems.pop_back();
             break;
         }
     }

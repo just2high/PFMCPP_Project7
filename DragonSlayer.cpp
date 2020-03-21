@@ -5,6 +5,7 @@
 
 DragonSlayer::DragonSlayer (std::string name_, int hp, int armor) : Character ( hp, armor, 4 ), name( name_ )
 {
+    std::cout << getName() << std::endl;
     helpfulItems = makeHelpfulItems( rand() % 4 );
     defensiveItems = makeDefensiveItems( rand() % 3 );
     attackItems = makeAttackItems( 1 );
@@ -33,6 +34,7 @@ void DragonSlayer::attack(Character& other)
             {
                 attackItems->use(this);
                 item.reset(); //can only be used once!
+                this->attackItems.pop_back();
 
                break;
             }
