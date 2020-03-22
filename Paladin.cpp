@@ -9,8 +9,6 @@ Paladin::Paladin( std::string name_, int hp, int armor ) : Character ( hp, armor
     defensiveItems = makeDefensiveItems( rand() % 6 );
 }
 
-Paladin::~Paladin() {}
-
 const std::string& Paladin::getName()
 {
     return name;

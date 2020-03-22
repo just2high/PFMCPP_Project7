@@ -9,8 +9,6 @@ Dwarf::Dwarf(std::string name_, int hp, int armor) : Character ( hp, armor, 4 ),
     defensiveItems = makeDefensiveItems( rand() % 4 );
 }
 
-Dwarf::~Dwarf(){}
-
 const std::string& Dwarf::getName()
 {
     return name;

@@ -8,8 +8,6 @@ Dragon::Dragon ( std::string name_, int hp, int armor ) : Character ( hp, armor,
     // no pockets for items!
 }
 
-Dragon::~Dragon(){}
-
 void Dragon::attack(Character &other)
 {
     std::cout << name << " is attacking " << other.getName() << "!!!" << std::endl;

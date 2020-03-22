@@ -10,8 +10,6 @@ DragonSlayer::DragonSlayer (std::string name_, int hp, int armor) : Character ( 
     defensiveItems = makeDefensiveItems( rand() % 3 );
 }
 
-DragonSlayer::~DragonSlayer(){}
-
 const std::string& DragonSlayer::getName()
 {
     return name;
@@ -34,7 +32,7 @@ void DragonSlayer::attack(Character& other)
           dragon->takeDamage(attackDamage);
         }
         //reset attack damage after killing dragon
-        attackDamage = this->getInitialAttackDamage();
+        attackDamage = getInitialAttackDamage();
 
         std::cout << getName() << "'s frenzy is over.  Damage returns to: " << attackDamage << std::endl;    
     }
