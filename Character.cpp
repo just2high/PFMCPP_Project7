@@ -93,7 +93,7 @@ int Character::takeDamage(int damage)
 
 #include "Utility.h"
 
-void Character::levelUp( int& currentValue, int initialValue )
+void Character::levelUp( int& currentValue, int& initialValue )
 {
     if( currentValue < initialValue )
         currentValue = ceil(initialValue * 1.1);
@@ -119,7 +119,7 @@ void Character::attackInternal(Character& other)
         levelUp( armor, *initialArmorLevel);
         levelUp( attackDamage, *initialAttackDamage);
 
-        std::cout << getName() << " defeated " << other.getName() << " and leveled up!" << std::endl;        
+        std::cout << getName() << " defeated " << other.getName() << " and leveled up!" << std::endl;     
     }
 }
 
