@@ -1,7 +1,8 @@
 #include "Character.h"
 #include <iostream>
 #include <vector>
-
+#include <math.h>
+#include <memory>
 #include "DefensiveItem.h"
 #include "HelpfulItem.h"
 
@@ -10,7 +11,7 @@ Character::Character(int hp, int armor_, int attackDamage_ ) :
     armor(armor_),
     attackDamage(attackDamage_)
 {
-    initialHitPoints.reset( new int(hitPoints) );
+    initialHitPoints.reset( new int( hitPoints ) );
     initialArmorLevel.reset( new int( armor) );
     initialAttackDamage.reset( new int( attackDamage) );
 }
@@ -27,7 +28,8 @@ void Character::attack( Character& other )
     isDefending = false;
     std::cout << getName() << " has attacked " << other.getName() << std::endl;
     //subtract attackDamage from other->hitPoints
-    if( other.takeDamage(attackDamage) <= 0 )
+
+        if( other.takeDamage(attackDamage) <= 0 )
     {
         //if you kill other, you get a boost in hit points and armor.
         attackInternal(other);
@@ -43,6 +45,7 @@ void Character::defend()
         {
             defensiveItem->use(this);
             item.reset(); //can only be used once!
+            this->defensiveItems.pop_back();
             break;
         }
     }
@@ -58,6 +61,7 @@ void Character::help(Character& other)
         {
             helpfulItem->use(&other);
             item.reset(); //can only be used once!
+            this->helpfulItems.pop_back();
             break;
         }
     }
@@ -87,26 +91,42 @@ int Character::takeDamage(int damage)
 }
 
 
-#include <assert>
+#include "Utility.h"
+
+void Character::levelUp( int& currentValue, int& initialValue )
+{
+    if( currentValue < initialValue )
+        currentValue = ceil(initialValue * 1.1);
+    else
+        currentValue = ceil(currentValue * 1.1);
+
+    initialValue = currentValue;
+}
+
 void Character::attackInternal(Character& other)
 {
     if( other.hitPoints <= 0 )
     {
         /*
         When you defeat another Character: 
-            a) your stats are restored to their initial value if they are lower than it.
+            a) your stats are restored to their initial value if they are lower than it. (hp, armor, atk)
             b) your stats are boosted 10%
-            c) the initial value of your stats is updated to reflect this boosted stat for the next time you defeat another character.
+            c) the initial value of your stats is updated to reflect this boosted stat for the next time you defeat another character. initialX
       */
-        assert(false);
-        std::cout << getName() << " defeated " << other.getName() << " and leveled up!" << std::endl;        
+        //assert(false);
+
+        levelUp( hitPoints, *initialHitPoints);
+        levelUp( armor, *initialArmorLevel);
+        levelUp( attackDamage, *initialAttackDamage);
+
+        std::cout << getName() << " defeated " << other.getName() << " and leveled up!" << std::endl;     
     }
 }
 
 void Character::printStats()
 {
     std::cout << getName() << "'s stats: " << std::endl;
-    assert(false);
+    //assert(false);
     /*
     make your getStats() use a function from the Utility.h
     */
@@ -115,3 +135,4 @@ void Character::printStats()
     std::cout << std::endl;
     std::cout << std::endl;
 }
+

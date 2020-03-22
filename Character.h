@@ -30,6 +30,7 @@ struct Character
     int getHP() const { return hitPoints; }
     int getArmorLevel() const { return armor; }
     int getAttackDamage() const { return attackDamage; }
+    int getInitialAttackDamage() const { return *initialAttackDamage; }
     bool getIsDefending() const { return isDefending; }
     
     const std::vector<std::unique_ptr<Item>>& getHelpfulItems() const { return helpfulItems; }
@@ -53,14 +54,10 @@ struct Character
         std::cout << getName() << "'s attack damage level has been boosted to " << attackDamage << std::endl;
     }
 
-    void printStats()
-    {
-        std::cout << getName() << "'s stats: " << std::endl;
-        std::cout << getStats(); //make your getStats() use a function from the Utility.h
-        
-        std::cout << std::endl;
-        std::cout << std::endl;
-    }
+    void levelUp(int& currentValue, int& initialValue);
+
+    void printStats();
+
 protected:
     std::vector<std::unique_ptr<Item>> defensiveItems;
     std::vector<std::unique_ptr<Item>> helpfulItems;
